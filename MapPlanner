@@ -1,0 +1,55 @@
+import React, { useState } from "react";
+
+const MapPlanner = () => {
+  const [positions, setPositions] = useState([]);
+  const [annotations, setAnnotations] = useState([]);
+
+  const handleDrop = (e) => {
+    const operator = JSON.parse(e.dataTransfer.getData("operator"));
+    setPositions([...positions, { operator, x: e.clientX, y: e.clientY }]);
+  };
+
+  const handleAnnotation = (e) => {
+    const text = prompt("Enter annotation text:");
+    if (text) {
+      setAnnotations([...annotations, { text, x: e.clientX, y: e.clientY }]);
+    }
+  };
+
+  return (
+    <div
+      className="relative bg-gray-800 w-full h-96"
+      onClick={handleAnnotation}
+      onDrop={handleDrop}
+      onDragOver={(e) => e.preventDefault()}
+    >
+      <img src="/path-to-map-image.jpg" alt="Map" className="w-full h-full" />
+      {positions.map((pos, idx) => (
+        <div
+          key={idx}
+          style={{ position: "absolute", left: pos.x, top: pos.y }}
+        >
+          <img src={pos.operator.image} alt={pos.operator.name} />
+        </div>
+      ))}
+      {annotations.map((note, idx) => (
+        <div
+          key={idx}
+          style={{
+            position: "absolute",
+            left: note.x,
+            top: note.y,
+            background: "rgba(0,0,0,0.7)",
+            color: "white",
+            padding: "2px 5px",
+            borderRadius: "4px",
+          }}
+        >
+          {note.text}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default MapPlanner;

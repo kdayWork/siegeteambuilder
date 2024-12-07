@@ -1,0 +1,21 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import MapPlanning from "./pages/MapPlanning";
+import Strategies from "./pages/Strategies";
+import Header from "./components/Header";
+
+const App = () => {
+  return (
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/map-planning" element={<MapPlanning />} />
+        <Route path="/strategies" element={<Strategies />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;

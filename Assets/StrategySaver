@@ -1,0 +1,22 @@
+const StrategySaver = ({ team, annotations }) => {
+  const saveStrategy = async () => {
+    const response = await fetch("/api/strategies", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ team, annotations }),
+    });
+    if (response.ok) alert("Strategy saved!");
+    else alert("Failed to save.");
+  };
+
+  return (
+    <button
+      onClick={saveStrategy}
+      className="bg-green-500 text-white p-2 rounded"
+    >
+      Save Strategy
+    </button>
+  );
+};
+
+export default StrategySaver;

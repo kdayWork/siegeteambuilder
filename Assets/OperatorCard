@@ -1,0 +1,30 @@
+import React from "react";
+import { useDrag } from "react-dnd";
+
+const OperatorCard = ({ operator }) => {
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: "operator",
+    item: operator,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
+  return (
+    <div
+      ref={dragRef}
+      className={`p-4 rounded-md shadow-md ${isDragging ? "opacity-50" : "opacity-100"}`}
+    >
+      <img
+        src={operator.image}
+        alt={operator.name}
+        className="w-full h-32 object-cover rounded-md mb-2"
+      />
+      <h3 className="text-lg font-bold">{operator.name}</h3>
+      <p>Role: {operator.role}</p>
+      <p>Gadget: {operator.gadget}</p>
+    </div>
+  );
+};
+
+export default OperatorCard;
