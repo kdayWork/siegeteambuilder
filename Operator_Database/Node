@@ -1,0 +1,52 @@
+// Import MongoDB
+const { MongoClient } = require("mongodb");
+
+// MongoDB URI and Database Info
+const uri = "mongodb://localhost:27017";
+const dbName = "Operator_Database";
+const collectionName = "Operators";
+
+// Sample Operator Document
+const operator = {
+  _id: "A1",
+  name: "Ash",
+  role: "Attacker",
+  speed: 3,
+  armor: 1,
+  primary_gadget: "Breaching Rounds",
+  secondary_gadgets: ["Breach Charge", "Claymore"],
+  primary_guns: ["R4-C", "G36C"],
+  secondary_guns: ["5.7 USG", "M45 MEUSOC"],
+  ratings: {
+    firepower: 10,
+    intel: 2,
+    gadget_denial: 4,
+    breach: 6,
+    map_control: 0
+  }
+};
+
+// Connect to MongoDB
+async function run() {
+  const client = new MongoClient(uri);
+  
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    // Insert Example Document
+    const result = await collection.insertOne(operator);
+    console.log(`Inserted document with _id: ${result.insertedId}`);
+
+    // Fetch Document
+    const fetchedOperator = await collection.findOne({ _id: "A1" });
+    console.log("Fetched Operator:", fetchedOperator);
+    
+  } finally {
+    await client.close();
+  }
+}
+
+// Run the Function
+run().catch(console.error);

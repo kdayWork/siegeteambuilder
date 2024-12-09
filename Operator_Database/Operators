@@ -1,0 +1,148 @@
+{
+    "Operators": [
+      {
+        "_id": "A1",
+        "name": "Ash",
+        "role": "Attacker",
+        "speed": 3,
+        "health": 1,
+        "primary_gadget": "Breaching Rounds",
+        "secondary_gadgets": ["Breach Charge", "Claymore"],
+        "primary_guns": ["R4-C", "G36C"],
+        "secondary_guns": ["5.7 USG", "M45 MEUSOC"],
+        "ratings": {
+          "firepower": 10,
+          "intel": 2,
+          "gadget_denial": 4,
+          "breach": 6,
+          "map_control": 2
+        }
+      },
+      {
+        "_id": "A2",
+        "name": "Thermite",
+        "role": "Attacker",
+        "speed": 2,
+        "health": 2,
+        "primary_gadget": "Exothermic Charge",
+        "secondary_gadgets": ["Stun Grenage", "Smoke Grenade"],
+        "primary_guns": ["556XI", "M1014"],
+        "secondary_guns": ["M45 MEUSOC", "5.7 USG"],
+        "ratings": {
+          "firepower": 6,
+          "intel": 2,
+          "gadget_denial": 5,
+          "breach": 10,
+          "map_control": 4
+        }
+      },
+      {
+        "_id": "A3",
+        "name": "Glaz",
+        "role": "Attacker",
+        "speed": 3,
+        "health": 1,
+        "primary_gadget": "Flip Sight",
+        "secondary_gadgets": ["Smoke Grenade", "Frag Grenade", "Claymore"],
+        "primary_guns": ["OTS-03"],
+        "secondary_guns": ["PMM", "Gonne-6", "Bearing 9"],
+        "ratings": {
+          "firepower": 10,
+          "intel": 2,
+          "gadget_denial": 6,
+          "breach": 0,
+          "map_control": 5
+        }
+      },
+      {
+        "_id": "A4",
+        "name": "Fuze",
+        "role": "Attacker",
+        "speed": 1,
+        "health": 3,
+        "primary_gadget": "Cluster Charge",
+        "secondary_gadgets": ["Breach Charge", "Smoke Grenade", "Hard Breach Charge"],
+        "primary_guns": ["AK-12", "6P41", "Ballistic Shield"],
+        "secondary_guns": ["PMM", "GSH-18"],
+        "ratings": {
+          "firepower": 8,
+          "intel": 2,
+          "gadget_denial": 6,
+          "breach": 6,
+          "map_control": 6
+        }
+      },
+      {
+        "_id": "A5",
+        "name": "IQ",
+        "role": "Attacker",
+        "speed": 3,
+        "health": 1,
+        "primary_gadget": "Electronics Detector",
+        "secondary_gadgets": ["Breach Charge", "Claymore", "Frag Grenade"],
+        "primary_guns": ["AUG A2", "552 Commando", "G841"],
+        "secondary_guns": ["P12"],
+        "ratings": {
+          "firepower": 7,
+          "intel": 8,
+          "gadget_denial": 10,
+          "breach": 4,
+          "map_control": 4
+        }
+      },
+      {
+        "_id": "A6",
+        "name": "Blitz",
+        "role": "Attacker",
+        "speed": 2,
+        "health": 2,
+        "primary_gadget": "G52-Tactical Shield",
+        "secondary_gadgets": ["Smoke Grenade", "Breach Charge"],
+        "primary_guns": ["G52-Tactical Shield"],
+        "secondary_guns": ["P12"],
+        "ratings": {
+          "firepower": 4,
+          "intel": 2,
+          "gadget_denial": 2,
+          "breach": 4,
+          "map_control": 10
+        }
+      },
+      {
+        "_id": "A7",
+        "name": "Thatcher",
+        "role": "Attacker",
+        "speed": 1,
+        "health": 3,
+        "primary_gadget": "Emp Greande",
+        "secondary_gadgets": ["Breach Charge", "Claymore"],
+        "primary_guns": ["AR33", "L85A2", "M590A1"],
+        "secondary_guns": ["P226 MK 25"],
+        "ratings": {
+          "firepower": 7,
+          "intel": 2,
+          "gadget_denial": 10,
+          "breach": 2,
+          "map_control": 4
+        }
+      },
+      {
+        "_id": "A8",
+        "name": "Sledge",
+        "role": "Attacker",
+        "speed": 1,
+        "health": 3,
+        "primary_gadget": "Breaching Hammer",
+        "secondary_gadgets": ["Frag Grenade", "Stun Grenage", "Impact Emp Grenade"],
+        "primary_guns": ["L85A2", "M590A1"],
+        "secondary_guns": ["P226 MK 25"],
+        "ratings": {
+          "firepower": 7,
+          "intel": 2,
+          "gadget_denial": 8,
+          "breach": 6,
+          "map_control": 2
+        }
+      }
+    ]
+  }
