@@ -9,7 +9,7 @@ export const operators = [
       speed: 3,
       guns: ['AR-15'],
       description: 'Highly effective at breaching.',
-      image: '/images/operator1.png',
+      image: '/Assets/Operator-Portraits/ash-portrait.png',
     },
     {
       id: '2',
