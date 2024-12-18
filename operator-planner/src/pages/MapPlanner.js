@@ -1,86 +1,162 @@
 import React, { useState } from 'react';
+import { maps } from '../data/maps';
+import { operators } from '../data/operators';
 
-const Planner = ({ savedTeam }) => {
-  const [floor, setFloor] = useState(1);
+const MapPlanner = () => {
+  const [selectedMap, setSelectedMap] = useState(maps[0]); // Default map
+  const [selectedFloor, setSelectedFloor] = useState(maps[0].floors[0]); // Default floor
   const [placements, setPlacements] = useState({});
 
-  const handleOperatorPlacement = (operator, x, y) => {
+  // Handle dropping an operator onto the map
+  const handleOperatorDrop = (operator, e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
     setPlacements({
       ...placements,
-      [operator.id]: { x, y, floor },
+      [operator.id]: { x, y, floor: selectedFloor.name, icon: operator.icon },
     });
   };
 
+  // Handle dragging the operator after placement
+  const handleDragEnd = (id, e) => {
+    const rect = e.currentTarget.parentElement.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setPlacements({
+      ...placements,
+      [id]: { ...placements[id], x, y },
+    });
+  };
+
+  // Remove all operators from the map
+  const clearOperators = () => {
+    setPlacements({});
+  };
+
   return (
-    <div className="planner-page">
+    <div className="map-planner">
       <h1>Map Planner</h1>
-      <label>
-        Select Floor:
-        <select onChange={(e) => setFloor(Number(e.target.value))}>
-          <option value={1}>First Floor</option>
-          <option value={2}>Second Floor</option>
-        </select>
-      </label>
 
-      <div className="map-area" style={{ position: 'relative', width: '800px', height: '600px', background: '#ccc' }}>
-        {savedTeam.map((operator) => {
-          const placement = placements[operator.id];
-          if (placement && placement.floor === floor) {
-            return (
-              <div
-                key={operator.id}
-                className="operator-marker"
-                style={{
-                  position: 'absolute',
-                  left: `${placement.x}px`,
-                  top: `${placement.y}px`,
-                }}
-              >
-                <img src={operator.image} alt={operator.name} width="50" />
-              </div>
-            );
-          }
-          return null;
-        })}
-      </div>
-
-      <div className="operator-drag-list">
-        <h2>Operators to Place</h2>
-        {savedTeam.map((operator) => (
-          <div
-            key={operator.id}
-            className="draggable-operator"
-            draggable
-            onDragStart={(e) =>
-              e.dataTransfer.setData('operator', JSON.stringify(operator))
-            }
+      {/* Map and Floor Selector */}
+      <div style={{ marginBottom: '20px' }}>
+        <label>
+          Select a Map:
+          <select
+            onChange={(e) => {
+              const map = maps.find((m) => m.name === e.target.value);
+              setSelectedMap(map);
+              setSelectedFloor(map.floors[0]);
+              setPlacements({}); // Reset placements when changing maps
+            }}
           >
-            <img src={operator.image} alt={operator.name} width="50" />
-            <p>{operator.name}</p>
-          </div>
-        ))}
+            {maps.map((map) => (
+              <option key={map.name} value={map.name}>
+                {map.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label style={{ marginLeft: '20px' }}>
+          Select a Floor:
+          <select
+            onChange={(e) =>
+              setSelectedFloor(
+                selectedMap.floors.find((floor) => floor.name === e.target.value)
+              )
+            }
+            value={selectedFloor.name}
+          >
+            {selectedMap.floors.map((floor) => (
+              <option key={floor.name} value={floor.name}>
+                {floor.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {/* Clear Map Button */}
+        <button
+          onClick={clearOperators}
+          style={{
+            marginLeft: '20px',
+            padding: '5px 10px',
+            backgroundColor: '#ff4d4f',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: '5px',
+          }}
+        >
+          Clear Map
+        </button>
       </div>
 
+      {/* Map Blueprint Area */}
       <div
-        className="map-drop-zone"
+        className="map-blueprint"
         style={{
+          position: 'relative',
           width: '800px',
           height: '600px',
-          background: '#ddd',
-          marginTop: '20px',
-          position: 'relative',
+          margin: '20px auto',
+          background: `url(${selectedFloor.image}) no-repeat center/cover`,
         }}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           const operator = JSON.parse(e.dataTransfer.getData('operator'));
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          handleOperatorPlacement(operator, x, y);
+          handleOperatorDrop(operator, e);
         }}
-      />
+      >
+        {/* Display and make placed operators draggable */}
+        {Object.entries(placements).map(([id, { x, y, floor, icon }]) =>
+          floor === selectedFloor.name ? (
+            <img
+              key={id}
+              src={icon}
+              alt={`Operator ${id}`}
+              draggable
+              onDragEnd={(e) => handleDragEnd(id, e)}
+              style={{
+                position: 'absolute',
+                left: `${x}px`,
+                top: `${y}px`,
+                width: '50px',
+                cursor: 'grab',
+              }}
+            />
+          ) : null
+        )}
+      </div>
+
+      {/* Operator List for Dragging */}
+      <div className="operator-list" style={{ textAlign: 'center' }}>
+        <h3>Available Operators</h3>
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          {operators.map((operator) => (
+            <div
+              key={operator.id}
+              draggable
+              onDragStart={(e) =>
+                e.dataTransfer.setData('operator', JSON.stringify(operator))
+              }
+              style={{ textAlign: 'center', cursor: 'grab' }}
+            >
+              <img
+                src={operator.icon}
+                alt={operator.name}
+                style={{ width: '50px', marginBottom: '5px' }}
+              />
+              <p>{operator.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Planner;
+export default MapPlanner;
