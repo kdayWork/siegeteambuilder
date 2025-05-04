@@ -53,5 +53,23 @@ export const operators = [
       Breach_Rating: 4,
       Map_Control_Rating: 4
     },
+    {
+      id: 'A3',
+      name: 'Thatcher',
+      side: 'Attacker',
+      primary_gadgets: 'Emp Grenade',
+      secondary_gadgets: ['Breach Charge','Claymore'],
+      health: 3,
+      speed: 1,
+      guns: ['AR33','L85A2','M590A1'],
+      description: 'Explosive device that\'s manually detonated to create large entryways into breakable and reinforced surfaces.',
+      image: '/Assets/Operator-Portraits/thatcher-portrait.png',
+      icon: '/Assets/Operator-Icons/Thatcher-icon.png',
+      Firepower_Rating: 6,
+      Intel_Rating: 2,
+      Gadget_Denial_Rating: 10,
+      Breach_Rating: 4,
+      Map_Control_Rating: 4
+    },
   ];
   
