@@ -44,7 +44,7 @@ export const operators = [
       health: 3,
       speed: 1,
       guns: ['AR33','L85A2','M590A1'],
-      description: 'Explosive device that\'s manually detonated to create large entryways into breakable and reinforced surfaces.',
+      description: 'Grenade that shuts down enemey electronics.',
       image: '/Assets/Operator-Portraits/thatcher-portrait.png',
       icon: '/Assets/Operator-Icons/Thatcher-icon.png',
       Firepower_Rating: 6,
@@ -53,6 +53,43 @@ export const operators = [
       Breach_Rating: 4,
       Map_Control_Rating: 4
     },
+    {
+      id: 'A4',
+      name: 'Rauora',
+      side: 'Attacker',
+      primary_gadgets: 'D.O.M. Panel Launcher',
+      secondary_gadgets: ['Smoke Grenade','Breach Charge'],
+      health: 2,
+      speed: 2,
+      guns: ['417','M249'],
+      description: 'Deploy bulletproof panels on doors or windows.',
+      image: '/Assets/Operator-Portraits/rauora-portrait.png',
+      icon: '/Assets/Operator-Icons/Rauora-icon.png',
+      Firepower_Rating: 6,
+      Intel_Rating: 2,
+      Gadget_Denial_Rating: 10,
+      Breach_Rating: 4,
+      Map_Control_Rating: 4
+    },
+    {
+      id: 'A5',
+      name: 'Striker',
+      side: 'Attacker',
+      primary_gadgets: 'Gadget Kit',
+      secondary_gadgets: ['Breach Charge','Claymore','Frag Grenade','Hard Breach Charge','Smoke Grenade','Stun Grenade','Impact EMP Grenade'],
+      health: 2,
+      speed: 2,
+      guns: ['M4','M249'],
+      description: 'Access to all secondary gadgets.',
+      image: '/Assets/Operator-Portraits/striker-portrait.png',
+      icon: '/Assets/Operator-Icons/Striker-icon.png',
+      Firepower_Rating: 6,
+      Intel_Rating: 2,
+      Gadget_Denial_Rating: 10,
+      Breach_Rating: 4,
+      Map_Control_Rating: 4
+    },
+    
     
   ];
   
