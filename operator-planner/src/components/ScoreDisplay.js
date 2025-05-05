@@ -1,153 +1,26 @@
-import React, { useState } from 'react';
-import { maps } from '../data/maps';
-import { operators } from '../data/operators';
+import React from 'react';
 
-const MapPlanner = ({ savedTeam }) => {
-  const [selectedMap, setSelectedMap] = useState(maps[0]);
-  const [selectedFloor, setSelectedFloor] = useState(maps[0].floors[0]);
-  const [placements, setPlacements] = useState({});
-
-  const handleOperatorDrop = (operator, e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    setPlacements({
-      ...placements,
-      [operator.id]: { x, y, floor: selectedFloor.name, icon: operator.icon },
-    });
-  };
-
-  const handleDragEnd = (id, e) => {
-    const rect = e.currentTarget.parentElement.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    setPlacements({
-      ...placements,
-      [id]: { ...placements[id], x, y },
-    });
-  };
-
-  const clearOperators = () => {
-    setPlacements({});
-  };
+const ScoreDisplay = ({ team }) => {
+  const firepower = team.reduce((sum, op) => sum + (op?.Firepower_Rating || 0), 0);
+  const intel = team.reduce((sum, op) => sum + (op?.Intel_Rating || 0), 0);
+  const denial = team.reduce((sum, op) => sum + (op?.Gadget_Denial_Rating || 0), 0);
+  const breach = team.reduce((sum, op) => sum + (op?.Breach_Rating || 0), 0);
+  const mapControl = team.reduce((sum, op) => sum + (op?.Map_Control_Rating || 0), 0);
+  const total = firepower + intel + denial + breach + mapControl;
 
   return (
-    <div className="map-planner">
-      <h1>Map Planner</h1>
-
-      <div style={{ marginBottom: '20px' }}>
-        <label>
-          Select a Map:
-          <select
-            onChange={(e) => {
-              const map = maps.find((m) => m.name === e.target.value);
-              setSelectedMap(map);
-              setSelectedFloor(map.floors[0]);
-              setPlacements({});
-            }}
-          >
-            {maps.map((map) => (
-              <option key={map.name} value={map.name}>
-                {map.name}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label style={{ marginLeft: '20px' }}>
-          Select a Floor:
-          <select
-            onChange={(e) =>
-              setSelectedFloor(
-                selectedMap.floors.find((floor) => floor.name === e.target.value)
-              )
-            }
-            value={selectedFloor.name}
-          >
-            {selectedMap.floors.map((floor) => (
-              <option key={floor.name} value={floor.name}>
-                {floor.name}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <button
-          onClick={clearOperators}
-          style={{
-            marginLeft: '20px',
-            padding: '5px 10px',
-            backgroundColor: '#ff4d4f',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-            borderRadius: '5px',
-          }}
-        >
-          Clear Map
-        </button>
-      </div>
-
-      <div
-        className="map-blueprint"
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '500px', // Ensure the map fits the container
-          background: `url(${selectedFloor.image}) no-repeat center/contain`,
-        }}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => {
-          const operator = JSON.parse(e.dataTransfer.getData('operator'));
-          handleOperatorDrop(operator, e);
-        }}
-      >
-        {Object.entries(placements).map(([id, { x, y, floor, icon }]) =>
-          floor === selectedFloor.name ? (
-            <img
-              key={id}
-              src={icon}
-              alt={`Operator ${id}`}
-              draggable
-              onDragEnd={(e) => handleDragEnd(id, e)}
-              style={{
-                position: 'absolute',
-                left: `${x}px`,
-                top: `${y}px`,
-                width: '50px',
-                cursor: 'grab',
-              }}
-            />
-          ) : null
-        )}
-      </div>
-
-      <div className="operator-list" style={{ textAlign: 'center' }}>
-        <h3>Available Operators</h3>
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-          {operators.map((operator) => (
-            <div
-              key={operator.id}
-              draggable
-              onDragStart={(e) =>
-                e.dataTransfer.setData('operator', JSON.stringify(operator))
-              }
-              style={{ textAlign: 'center', cursor: 'grab' }}
-            >
-              <img
-                src={operator.icon}
-                alt={operator.name}
-                style={{ width: '50px', marginBottom: '5px' }}
-              />
-              <p>{operator.name}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="score-display">
+      <h3>Team Score</h3>
+      <ul>
+        <li>Firepower: {firepower}</li>
+        <li>Intel: {intel}</li>
+        <li>Gadget Denial: {denial}</li>
+        <li>Breach: {breach}</li>
+        <li>Map Control: {mapControl}</li>
+        <li><strong>Total Score: {total}</strong></li>
+      </ul>
     </div>
   );
 };
 
-export default MapPlanner;
+export default ScoreDisplay;

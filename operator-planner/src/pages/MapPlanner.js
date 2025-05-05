@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { maps } from '../data/maps';
 import { operators } from '../data/operators';
 
-const MapPlanner = ({ savedTeam }) => {
+const MapPlanner = () => {
   const [selectedMap, setSelectedMap] = useState(maps[0]);
   const [selectedFloor, setSelectedFloor] = useState(maps[0].floors[0]);
   const [placements, setPlacements] = useState({});
@@ -12,9 +12,8 @@ const MapPlanner = ({ savedTeam }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Update placements state to store the position of each operator
-    setPlacements((prevPlacements) => ({
-      ...prevPlacements,
+    setPlacements((prev) => ({
+      ...prev,
       [operator.id]: { x, y, floor: selectedFloor.name, icon: operator.icon },
     }));
   };
@@ -24,10 +23,9 @@ const MapPlanner = ({ savedTeam }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Ensure operator position is updated correctly
-    setPlacements((prevPlacements) => ({
-      ...prevPlacements,
-      [id]: { ...prevPlacements[id], x, y },
+    setPlacements((prev) => ({
+      ...prev,
+      [id]: { ...prev[id], x, y },
     }));
   };
 
@@ -97,7 +95,7 @@ const MapPlanner = ({ savedTeam }) => {
         style={{
           position: 'relative',
           width: '100%',
-          height: '500px', // Ensure the map fits the container
+          height: '500px',
           background: `url(${selectedFloor.image}) no-repeat center/contain`,
         }}
         onDragOver={(e) => e.preventDefault()}
@@ -128,7 +126,7 @@ const MapPlanner = ({ savedTeam }) => {
 
       <div className="operator-list" style={{ textAlign: 'center' }}>
         <h3>Available Operators</h3>
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {operators.map((operator) => (
             <div
               key={operator.id}

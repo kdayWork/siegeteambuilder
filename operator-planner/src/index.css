@@ -1,18 +1,70 @@
+/* ==== Global Theme & Layout ==== */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #001f3f); /* Black to dark blue */
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 20px;
+  box-sizing: border-box;
 }
+
+/* ==== Page Containers ==== */
+.home-page,
+.map-planner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* ==== Navigation ==== */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.nav-buttons button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* ==== Operator Cards ==== */
+.operator-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
 .operator-card img {
   cursor: pointer;
+  width: 150px;
+  height: 250px;
+  object-fit: cover;
+  border: 2px solid #007bff;
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
@@ -21,35 +73,82 @@ code {
   transform: scale(1.05);
 }
 
-.operator-details {
+.operator-info {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
   color: white;
-  padding: 10px;
-  width: 200px;
-  text-align: left;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
-  z-index: 10;
+  padding: 8px;
+  border-radius: 5px;
+  max-width: 130px;
+  font-size: 12px;
+  z-index: 2;
 }
-.map-planner {
+
+/* ==== Operator Slots ==== */
+.operator-slots {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.operator-slot {
+  background-color: rgba(0, 0, 50, 0.3);
+  border: 2px dashed #007bff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 120px;
+  height: 160px;
+  text-align: center;
+  color: #ccc;
+}
+
+.operator-slot img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* ==== Score Display ==== */
+.score-display {
+  background: rgba(0, 0, 50, 0.6);
+  border: 1px solid #007bff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
   text-align: center;
 }
 
+/* ==== Map Blueprint ==== */
 .map-blueprint {
-  border: 2px solid #333;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid #007bff;
+  background-color: black;
+  margin-top: 20px;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.operator-list img {
+/* ==== Operator Icons on Map ==== */
+.operator-on-map img {
+  width: 50px;
+  position: absolute;
+  cursor: grab;
+}
+
+/* ==== Map Planner Operator List ==== */
+.map-planner .operator-list img {
   border-radius: 50%;
+  border: 2px solid #007bff;
   transition: transform 0.2s;
+  width: 50px;
 }
 
-.operator-list img:hover {
+.map-planner .operator-list img:hover {
   transform: scale(1.1);
 }

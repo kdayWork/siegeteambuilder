@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import MapPlanner from './pages/MapPlanner';
 
 function App() {
-  const [savedTeam, setSavedTeam] = useState([]);
-
   return (
     <Router>
       <div className="app">
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/planner">Map Planner</Link>
-        </nav>
+        <div className="nav-buttons">
+          <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+            <button>Home</button>
+          </Link>
+          <Link to="/planner" style={{ textDecoration: 'none', color: 'white' }}>
+            <button>Map Planner</button>
+          </Link>
+        </div>
+
         <Routes>
-          <Route
-            path="/"
-            element={<Home savedTeam={savedTeam} setSavedTeam={setSavedTeam} />}
-          />
-          <Route
-            path="/planner"
-            element={<MapPlanner savedTeam={savedTeam} />}
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/planner" element={<MapPlanner />} />
         </Routes>
       </div>
     </Router>

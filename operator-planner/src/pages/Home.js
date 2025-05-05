@@ -5,9 +5,9 @@ import OperatorSlot from '../components/OperatorSlot';
 import FilterBar from '../components/FilterBar';
 import ScoreDisplay from '../components/ScoreDisplay';
 
-const Home = ({ savedTeam, setSavedTeam }) => {
+const Home = () => {
   const [filters, setFilters] = useState({ role: '', side: '' });
-  const [filteredOperators, setFilteredOperators] = useState(operators); // state for filtered operators
+  const [filteredOperators, setFilteredOperators] = useState(operators);
   const [team, setTeam] = useState([null, null, null, null, null]);
 
   const handleSelect = (operator) => {
@@ -29,11 +29,6 @@ const Home = ({ savedTeam, setSavedTeam }) => {
     const updatedTeam = [...team];
     updatedTeam[slotIndex] = null;
     setTeam(updatedTeam);
-  };
-
-  const handleSaveTeam = () => {
-    setSavedTeam(team.filter((operator) => operator !== null));
-    alert('Team saved!');
   };
 
   return (
@@ -69,11 +64,8 @@ const Home = ({ savedTeam, setSavedTeam }) => {
       </div>
 
       <ScoreDisplay team={team} />
-
-      <button onClick={handleSaveTeam}>Save Team</button>
     </div>
   );
 };
 
 export default Home;
-
