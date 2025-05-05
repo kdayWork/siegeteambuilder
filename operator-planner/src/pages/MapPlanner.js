@@ -2,36 +2,35 @@ import React, { useState } from 'react';
 import { maps } from '../data/maps';
 import { operators } from '../data/operators';
 
-const MapPlanner = () => {
-  const [selectedMap, setSelectedMap] = useState(maps[0]); // Default map
-  const [selectedFloor, setSelectedFloor] = useState(maps[0].floors[0]); // Default floor
+const MapPlanner = ({ savedTeam }) => {
+  const [selectedMap, setSelectedMap] = useState(maps[0]);
+  const [selectedFloor, setSelectedFloor] = useState(maps[0].floors[0]);
   const [placements, setPlacements] = useState({});
 
-  // Handle dropping an operator onto the map
   const handleOperatorDrop = (operator, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    setPlacements({
-      ...placements,
+    // Update placements state to store the position of each operator
+    setPlacements((prevPlacements) => ({
+      ...prevPlacements,
       [operator.id]: { x, y, floor: selectedFloor.name, icon: operator.icon },
-    });
+    }));
   };
 
-  // Handle dragging the operator after placement
   const handleDragEnd = (id, e) => {
     const rect = e.currentTarget.parentElement.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    setPlacements({
-      ...placements,
-      [id]: { ...placements[id], x, y },
-    });
+    // Ensure operator position is updated correctly
+    setPlacements((prevPlacements) => ({
+      ...prevPlacements,
+      [id]: { ...prevPlacements[id], x, y },
+    }));
   };
 
-  // Remove all operators from the map
   const clearOperators = () => {
     setPlacements({});
   };
@@ -40,7 +39,6 @@ const MapPlanner = () => {
     <div className="map-planner">
       <h1>Map Planner</h1>
 
-      {/* Map and Floor Selector */}
       <div style={{ marginBottom: '20px' }}>
         <label>
           Select a Map:
@@ -49,7 +47,7 @@ const MapPlanner = () => {
               const map = maps.find((m) => m.name === e.target.value);
               setSelectedMap(map);
               setSelectedFloor(map.floors[0]);
-              setPlacements({}); // Reset placements when changing maps
+              setPlacements({});
             }}
           >
             {maps.map((map) => (
@@ -78,7 +76,6 @@ const MapPlanner = () => {
           </select>
         </label>
 
-        {/* Clear Map Button */}
         <button
           onClick={clearOperators}
           style={{
@@ -95,15 +92,13 @@ const MapPlanner = () => {
         </button>
       </div>
 
-      {/* Map Blueprint Area */}
       <div
         className="map-blueprint"
         style={{
           position: 'relative',
-          width: '800px',
-          height: '600px',
-          margin: '20px auto',
-          background: `url(${selectedFloor.image}) no-repeat center/cover`,
+          width: '100%',
+          height: '500px', // Ensure the map fits the container
+          background: `url(${selectedFloor.image}) no-repeat center/contain`,
         }}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -111,7 +106,6 @@ const MapPlanner = () => {
           handleOperatorDrop(operator, e);
         }}
       >
-        {/* Display and make placed operators draggable */}
         {Object.entries(placements).map(([id, { x, y, floor, icon }]) =>
           floor === selectedFloor.name ? (
             <img
@@ -132,7 +126,6 @@ const MapPlanner = () => {
         )}
       </div>
 
-      {/* Operator List for Dragging */}
       <div className="operator-list" style={{ textAlign: 'center' }}>
         <h3>Available Operators</h3>
         <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>

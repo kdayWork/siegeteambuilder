@@ -7,9 +7,16 @@ import ScoreDisplay from '../components/ScoreDisplay';
 
 const Home = ({ savedTeam, setSavedTeam }) => {
   const [filters, setFilters] = useState({ role: '', side: '' });
+  const [filteredOperators, setFilteredOperators] = useState(operators); // state for filtered operators
   const [team, setTeam] = useState([null, null, null, null, null]);
 
   const handleSelect = (operator) => {
+    const isOperatorSelected = team.some((op) => op?.id === operator.id);
+    if (isOperatorSelected) {
+      alert('Operator already selected!');
+      return;
+    }
+
     const emptySlotIndex = team.findIndex((slot) => slot === null);
     if (emptySlotIndex !== -1) {
       const updatedTeam = [...team];
@@ -29,16 +36,15 @@ const Home = ({ savedTeam, setSavedTeam }) => {
     alert('Team saved!');
   };
 
-  const filteredOperators = operators.filter(
-    (operator) =>
-      (!filters.role || operator.role === filters.role) &&
-      (!filters.side || operator.side === filters.side)
-  );
-
   return (
     <div className="home-page">
       <h1>Operator Team Builder</h1>
-      <FilterBar filters={filters} setFilters={setFilters} />
+      <FilterBar
+        filters={filters}
+        setFilters={setFilters}
+        operators={operators}
+        setFilteredOperators={setFilteredOperators}
+      />
       
       <div className="operator-list">
         {filteredOperators.map((operator) => (
@@ -70,3 +76,4 @@ const Home = ({ savedTeam, setSavedTeam }) => {
 };
 
 export default Home;
+
