@@ -1,5 +1,22 @@
 export const operators = [
-  
+  {
+    id: 'A1',
+    name: 'Rauora',
+    side: 'Attacker',
+    primary_gadgets: 'D.O.M. Panel Launcher',
+    secondary_gadgets: ['Smoke Grenade','Breach Charge'],
+    health: 2,
+    speed: 2,
+    guns: ['417','M249'],
+    description: 'Deploy bulletproof panels on doors or windows.',
+    image: '/Assets/Operator-Portraits/rauora-portrait.png',
+    icon: '/Assets/Operator-Icons/Rauora-icon.png',
+    Firepower_Rating: 6,
+    Intel_Rating: 2,
+    Gadget_Denial_Rating: 10,
+    Breach_Rating: 4,
+    Map_Control_Rating: 4
+  },
   {
     id: 'A2',
     name: 'Striker',
@@ -1331,3 +1348,4 @@ export const operators = [
     Map_Control_Rating: 4
   }
 ];
+
