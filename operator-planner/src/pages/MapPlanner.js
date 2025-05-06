@@ -59,12 +59,12 @@ const MapPlanner = () => {
         <label style={{ marginLeft: '20px' }}>
           Select a Floor:
           <select
+            value={selectedFloor.name}
             onChange={(e) =>
               setSelectedFloor(
                 selectedMap.floors.find((floor) => floor.name === e.target.value)
               )
             }
-            value={selectedFloor.name}
           >
             {selectedMap.floors.map((floor) => (
               <option key={floor.name} value={floor.name}>
@@ -100,7 +100,9 @@ const MapPlanner = () => {
         }}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
-          const operator = JSON.parse(e.dataTransfer.getData('operator'));
+          const data = e.dataTransfer.getData('operator');
+          if (!data) return; // avoid crash on empty drag
+          const operator = JSON.parse(data);
           handleOperatorDrop(operator, e);
         }}
       >
@@ -117,6 +119,8 @@ const MapPlanner = () => {
                 left: `${x}px`,
                 top: `${y}px`,
                 width: '50px',
+                height: '50px',
+                objectFit: 'contain',
                 cursor: 'grab',
               }}
             />
@@ -126,7 +130,14 @@ const MapPlanner = () => {
 
       <div className="operator-list" style={{ textAlign: 'center' }}>
         <h3>Available Operators</h3>
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '10px',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        >
           {operators.map((operator) => (
             <div
               key={operator.id}
@@ -139,9 +150,15 @@ const MapPlanner = () => {
               <img
                 src={operator.icon}
                 alt={operator.name}
-                style={{ width: '50px', marginBottom: '5px' }}
+                style={{
+                  width: '50px',
+                  height: '50px',
+                  objectFit: 'cover',
+                  borderRadius: '50%',
+                  border: '2px solid #007bff',
+                }}
               />
-              <p>{operator.name}</p>
+              <p style={{ fontSize: '12px', color: '#ccc' }}>{operator.name}</p>
             </div>
           ))}
         </div>

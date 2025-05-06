@@ -29,7 +29,7 @@ export const maps = [
     {
       name: 'Oregon',
       floors: [
-        { name: '1st Floor', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints.png' },
+        { name: '1st Floor', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints/r6-maps-oregon-blueprint-1stFloor.jpg' },
       ],
     },
     // Add more maps as needed

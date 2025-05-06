@@ -17,6 +17,13 @@ const Home = () => {
       return;
     }
 
+    // Prevent mixing attackers and defenders
+    const currentTeamSide = team.find((op) => op !== null)?.side;
+    if (currentTeamSide && operator.side !== currentTeamSide) {
+      alert(`Cannot mix ${currentTeamSide}s with ${operator.side}s.`);
+      return;
+    }
+
     const emptySlotIndex = team.findIndex((slot) => slot === null);
     if (emptySlotIndex !== -1) {
       const updatedTeam = [...team];
@@ -34,22 +41,8 @@ const Home = () => {
   return (
     <div className="home-page">
       <h1>Operator Team Builder</h1>
-      <FilterBar
-        filters={filters}
-        setFilters={setFilters}
-        operators={operators}
-        setFilteredOperators={setFilteredOperators}
-      />
-      
-      <div className="operator-list">
-        {filteredOperators.map((operator) => (
-          <OperatorCard
-            key={operator.id}
-            operator={operator}
-            onSelect={handleSelect}
-          />
-        ))}
-      </div>
+
+      <ScoreDisplay team={team} />
 
       <h2>Your Team</h2>
       <div className="operator-slots">
@@ -63,7 +56,22 @@ const Home = () => {
         ))}
       </div>
 
-      <ScoreDisplay team={team} />
+      <FilterBar
+        filters={filters}
+        setFilters={setFilters}
+        operators={operators}
+        setFilteredOperators={setFilteredOperators}
+      />
+
+      <div className="operator-list">
+        {filteredOperators.map((operator) => (
+          <OperatorCard
+            key={operator.id}
+            operator={operator}
+            onSelect={handleSelect}
+          />
+        ))}
+      </div>
     </div>
   );
 };
