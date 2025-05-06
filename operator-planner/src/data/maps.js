@@ -29,9 +29,23 @@ export const maps = [
     {
       name: 'Oregon',
       floors: [
+        { name: 'Ground Floor', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints/r6-maps-oregon-blueprint-Ground.jpg' },
         { name: '1st Floor', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints/r6-maps-oregon-blueprint-1stFloor.jpg' },
+        { name: '2nd Floor', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints/r6-maps-oregon-blueprint-2ndFloor.jpg' },
+        { name: 'Basement', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints/r6-maps-oregon-blueprint-Basement.jpg' },
+        { name: 'Roof', image: '/Assets/R6-Maps/r6-maps-oregon-blueprints/r6-maps-oregon-blueprint-5.jpg' },
       ],
     },
+    {
+      name: 'Kanal',
+      floors: [
+        { name: 'Ground Floor', image: '/Assets/R6-Maps/r6-maps-kanal-blueprints/r6-maps-kanal-blueprint-Ground1.jpg' },
+        { name: '1st Floor', image: '/Assets/R6-Maps/r6-maps-kanal-blueprints/r6-maps-kanal-blueprint-1stFloor.jpg' },
+        { name: '2nd Floor', image: '/Assets/R6-Maps/r6-maps-kanal-blueprints/r6-maps-kanal-blueprint-2ndFloor.jpg' },
+        { name: 'Basement', image: '/Assets/R6-Maps/r6-maps-kanal-blueprints/r6-maps-kanal-blueprint-Ground2.jpg' },
+        { name: 'Roof', image: '/Assets/R6-Maps/r6-maps-kanal-blueprints/r6-maps-kanal-blueprint-Roof.jpg' },
+      ],
+    }
     // Add more maps as needed
   ];
   
